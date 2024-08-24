@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.gridstyle{
+  height: 88vh;
+}
+.carasoulimg{
+  background-image: url("https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80");
+}
+/* Styles for Dashboard component */
+.dashboard-container {
+  padding: 20px;
+}
+
+.dashboard-container h1 {
+  margin-bottom: 20px;
+}
+
+.dashboard-container .grid {
+  width: 100%;
+}
+
+.dashboard-container .col-span-2 {
+  flex: 2;
+}
+
+.dashboard-container .border {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.dashboard-container .border-blue-100 {
+  border-color: #ebf8ff;
+}
+
+.dashboard-container .justify-center {
+  justify-content: center;
+}
+
+.dashboard-container .text-blue-800 {
+  color: #2b6cb0;
+}
+
+.dashboard-container .text-blue-400 {
+  color: #4299e1;
+}

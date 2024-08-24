@@ -33,7 +33,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: [self-hosted]
+    runs-on: ec2-user
     steps:
       - name: Pull image from Docker Hub
         run: docker pull badboy2977/tradematefr:latest

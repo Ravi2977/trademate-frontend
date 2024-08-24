@@ -1,0 +1,45 @@
+name: CICD
+
+on:
+  push:
+    branches: [deploy-to-ec2]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React App
+        run: npm run build
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKERPASSWORD }}" | docker login -u "${{ secrets.DOCKERUSERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t badboy2977/tradematefr .
+
+      - name: Publish image to Docker Hub
+        run: docker push badboy2977/tradematefr:latest
+
+  deploy:
+    needs: build
+    runs-on: [self-hosted]
+    steps:
+      - name: Pull image from Docker Hub
+        run: docker pull badboy2977/tradematefr:latest
+
+      - name: Delete old container
+        run: docker rm -f react-example-container
+
+      - name: Run Docker container
+        run: docker run -d -p 80:80 --name react-example-container badboy2977/tradematefr:latest

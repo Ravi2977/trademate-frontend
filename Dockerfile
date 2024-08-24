@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # If your application needs to be built (e.g., React app)
-RUN npm build
+RUN npm run build
 
 # Expose the port your app runs on (usually 3000 for React/Node apps)
 EXPOSE 3000

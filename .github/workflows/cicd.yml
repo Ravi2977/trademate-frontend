@@ -47,11 +47,11 @@
 #       - name: Run Docker container
 #         run: sudo docker run -d -p 80:80 --name react-example-container badboy2977/tradematefr:latest
 name: Deploy Next.js application
-
 on:
   push:
-    branches:
-      - deploy-with-docker-ec2
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:

@@ -1,15 +1,13 @@
-FROM node:20-alpine3.18 as builder
+FROM node:18-alpine
 
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-RUN npm run build
+WORKDIR /react-app
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "start"]
+COPY package.json package-lock.json ./
+
+RUN npm install --silent
+
+COPY . ./
+
+CMD ["npm", "run", "start"]

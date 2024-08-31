@@ -3,7 +3,7 @@
 import React, { createContext, useState, useContext } from 'react';
 
 // Base URL for API
-export const BASE_URL = 'http://ec2-16-171-11-228.eu-north-1.compute.amazonaws.com:8080';
+export const BASE_URL = 'http://13.60.197.154:8080';
 
 // Create a context for authentication
 const AuthContext = createContext();

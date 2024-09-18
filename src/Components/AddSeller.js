@@ -7,7 +7,7 @@ import { BASE_URL } from './AuthContext'
 import { toast, ToastContainer } from 'react-toastify'
 function AddSeller() {
     const [uploadStatus, setUplaodStatus] = useState("")
-    const [loading,setLoading]=useState(false)
+    const [loading, setLoading] = useState(false)
     const [sellerDetails, setSellerDetails] = useState({
         sellerName: '',
         address: '',
@@ -18,7 +18,7 @@ function AddSeller() {
         gstIn: '',
         gstType: '',
         mobile: '',
-        email:JSON.parse(localStorage.getItem('login')).user,
+        email: JSON.parse(localStorage.getItem('login')).user,
         company: {
             companyId: 0
         }
@@ -37,7 +37,7 @@ function AddSeller() {
         })
     }
     const handleOnSubmit = async (e) => {
-setLoading(true)
+        setLoading(true)
         e.preventDefault();
         try {
             const response = await fetch(`${BASE_URL}/seller/add`, {
@@ -50,8 +50,8 @@ setLoading(true)
             });
 
             if (response.ok) {
-               
-               toast.success("Seller Added")
+
+                toast.success("Seller Added")
                 setSellerDetails({
                     sellerName: '',
                     address: '',
@@ -62,18 +62,18 @@ setLoading(true)
                     gstIn: '',
                     gstType: '',
                     mobile: '',
-                    email:JSON.parse(localStorage.getItem('login')).user,
+                    email: JSON.parse(localStorage.getItem('login')).user,
                     company: {
                         companyId: 0
                     }
                 })
-               
+
 
             } else {
-               toast.error("Some error occurs")
+                toast.error("Some error occurs")
             }
         } catch (error) {
-          toast.error("Server not responding try again later")
+            toast.error("Server not responding try again later")
         }
         setLoading(false)
     };
@@ -89,7 +89,7 @@ setLoading(true)
                     <RightSidebar />
                 </div>
                 <div className='border border-gray-100 justify-center col-span-3 w-full '>
-                    <div className='w-full flex justify-center h-10 '>{loading?<img className='h-10' src={loder} alt="" />:''}</div>
+                    <div className='w-full flex justify-center h-10 '>{loading ? <img className='h-10' src={loder} alt="" /> : ''}</div>
                     <div><h1 className='flex justify-center text-3xl font-bold  text-green-600'>Add New seller</h1></div>
                     <form className="space-y-6 m-2 py-2 sm:pl-48" >
                         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
@@ -160,7 +160,7 @@ setLoading(true)
                     <div id='info' className='w-full text-center text-xl font-bold text-green-800 mt-2'>{uploadStatus}</div>
 
                 </div>
-<ToastContainer/>
+                <ToastContainer />
             </div>
         </div>
     )

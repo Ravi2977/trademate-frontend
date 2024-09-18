@@ -13,9 +13,7 @@ function NavigationButtons(props) {
         <NavLink className={navlinkStyle} to={`/remaining/${JSON.parse(localStorage.getItem('companyName')).companyName}`}>
           Remaining
         </NavLink>
-        <NavLink className={navlinkStyle} to={`/gst/${JSON.parse(localStorage.getItem('companyName')).companyName}`}>
-          GST
-        </NavLink>
+   
      
       </div>
       <div>
@@ -25,9 +23,7 @@ function NavigationButtons(props) {
         <NavLink className={navlinkStyle} to={`/purchase/${JSON.parse(localStorage.getItem('companyName')).companyName}`}>
           Purchase Details
         </NavLink>
-        <NavLink className={navlinkStyle} to={`/expenselist`}>
-          Expenses
-        </NavLink>
+       
       
       </div>
       <div>

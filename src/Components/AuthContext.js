@@ -3,7 +3,8 @@
 import React, { createContext, useState, useContext } from 'react';
 
 // Base URL for API
-export const BASE_URL = 'http://13.60.197.154:8080';
+export const BASE_URL = 'https://bcknd.ravicomputer.online';
+// export const BASE_URL = 'http://localhost:8080';
 
 // Create a context for authentication
 const AuthContext = createContext();

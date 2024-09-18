@@ -42,7 +42,7 @@ function ExpenseList() {
 
     return (
         <div className=' sm:px-10 h-[56rem]'>
-            <div className='w-full font-bold text-3xl text-green-600 underline text-center'>Customer List</div>
+            <div className='w-full font-bold text-3xl text-green-600 underline text-center'>Expense List</div>
             <div className="w-full  flex sm:justify-between flex-col sm:flex-row pr-20 items-center">
                 <div className='m-2 pl-28 '><NavLink to={`/dashboard/${JSON.parse(localStorage.getItem('companyName')).companyName}`} className=" hover:bg-blue-400 hover:text-black rounded-md px-3 py-2 text-sm font-medium bg-blue-800 text-white border border-blue-200 w-10">{localStorage.getItem('login') ? "⇐ Company Dashboard" : "Home"}</NavLink></div>
                 <div className='m-2 pl-28 '>

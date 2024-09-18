@@ -24,10 +24,10 @@ function Signin() {
       }));
     }
   }, []);
-  useEffect(()=>{
-const response =axios.get(`${BASE_URL}/auth/hello`)
-console.log(response.data)
-  },[])
+  useEffect(() => {
+    const response = axios.get(`${BASE_URL}/auth/hello`)
+    console.log(response.data)
+  }, [])
 
   const loadUser = async () => {
     try {
@@ -59,6 +59,7 @@ console.log(response.data)
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(loginDetails)
+
     }).then((resp) => {
       if (!resp.ok) {
         // If response status is not ok, update error message
@@ -75,12 +76,12 @@ console.log(response.data)
             }));
             loadUser().then((resp) => {
               console.log(resp.data)
-              console.log(resp.data.verified,resp.data.subscribed)
+              console.log(resp.data.verified, resp.data.subscribed)
               if (result.jwtToken) {
                 if (resp.data.verified) {
                   navigate('/usersDashboard');
                   window.location.reload();
-                }else{
+                } else {
                   navigate('/vercation');
                 }
               }
@@ -104,7 +105,7 @@ console.log(response.data)
       document.getElementById('errorInfo').innerHTML = "! Server Not responding try again later";
       setLoading(false)
     });
-
+    console.log(BASE_URL)
   };
 
 

@@ -16,7 +16,7 @@ function Signup() {
         confirmPassword: ''
     })
     const emailContent = {
-        message: `https://tradematebackend-mdsd.onrender.com/auth/setverify/${singupDetails.email}`,
+        message: `https://bcknd.ravicomputer.online/auth/setverify/${singupDetails.email}`,
         email: singupDetails.email,
         name: singupDetails.name
     }

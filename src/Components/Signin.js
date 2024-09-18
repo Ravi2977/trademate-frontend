@@ -53,7 +53,7 @@ function Signin() {
   const handleOnClick = (e) => {
     setLoading(true)
     e.preventDefault();
-    fetch(`${BASE_URL}/auth/login`, {
+    fetch(`https://bcknd.ravicomputer.online/auth/login`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

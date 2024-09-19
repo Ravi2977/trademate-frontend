@@ -49,30 +49,50 @@ function Dashboard() {
 
     return (
         <div className="p-4 bg-gray-100 min-h-screen">
-            <div className="flex">
-                <div className="w-1/4">
-                    <LeftSidebar />
-                    <RightSidebar />
-                </div>
-                <div className="w-3/4">
-                    <h1 className="text-2xl font-bold mb-4">Business Dashboard</h1>
-                
-                    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-                        <h2 className="text-xl font-semibold mb-2">Monthly Profits</h2>
-                        <Line data={chartData} options={{ responsive: true, plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: (context) => `${context.dataset.label}: $${context.raw}` } } } }} />
-                    </div>
-                    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-                        <h2 className="text-xl font-semibold mb-2">Recent Activities</h2>
-                        <ul>
-                            {recentActivities.map((activity, index) => (
-                                <li key={index} className="border-b py-2">{activity.description}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <ToastContainer />
+    <div className="flex flex-col lg:flex-row">
+        {/* Sidebar */}
+        <div className="lg:w-1/4 w-full mb-4 lg:mb-0">
+            <LeftSidebar />
+            <RightSidebar />
         </div>
+
+        {/* Main content */}
+        <div className="lg:w-3/4 w-full">
+            <h1 className="text-2xl font-bold mb-4">Business Dashboard</h1>
+
+            {/* Monthly Profits */}
+            <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+                <h2 className="text-xl font-semibold mb-2">Monthly Profits</h2>
+                <Line 
+                    data={chartData} 
+                    options={{ 
+                        responsive: true, 
+                        plugins: { 
+                            legend: { position: 'top' }, 
+                            tooltip: { 
+                                callbacks: { 
+                                    label: (context) => `${context.dataset.label}: $${context.raw}` 
+                                } 
+                            } 
+                        } 
+                    }} 
+                />
+            </div>
+
+            {/* Recent Activities */}
+            <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+                <h2 className="text-xl font-semibold mb-2">Recent Activities</h2>
+                <ul>
+                    {recentActivities.map((activity, index) => (
+                        <li key={index} className="border-b py-2">{activity.description}</li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <ToastContainer />
+</div>
+
     );
 }
 

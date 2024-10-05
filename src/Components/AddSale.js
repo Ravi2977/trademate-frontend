@@ -55,7 +55,7 @@ function AddSale() {
     useEffect(() => {
         loadUser()
     }, [])
-
+ console.log(BASE_URL)
     const loadUser = () => {
         try {
             fetch(`${BASE_URL}/user/byemail`, {

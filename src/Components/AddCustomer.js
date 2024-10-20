@@ -9,23 +9,20 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function AddCustomer() {
   const [loading, setLoading] = useState(false);
-  const companyName = JSON.parse(localStorage.getItem('companyName'))?.companyName || '';
-  const userEmail = JSON.parse(localStorage.getItem('login'))?.user || '';
   const authToken = JSON.parse(localStorage.getItem('login'))?.token || '';
 
   const [customerDetails, setCustomerDetails] = useState({
     customerName: '',
     address: '',
-    companyName: companyName,
     state: '',
     country: '',
     pinCode: '',
     gstIn: '',
     gstType: '',
     mobile: '',
-    email: userEmail,
     company: {
-      companyId: 0,
+      companyId:localStorage.getItem('cId')
+      ,
     },
   });
 
@@ -102,16 +99,15 @@ function AddCustomer() {
         setCustomerDetails({
           customerName: '',
           address: '',
-          companyName: companyName,
           state: '',
           country: '',
           pinCode: '',
           gstIn: '',
           gstType: '',
           mobile: '',
-          email: userEmail,
           company: {
-            companyId: 0,
+            companyId: localStorage.getItem('cId')
+            ,
           },
         });
       } else {
@@ -130,7 +126,8 @@ function AddCustomer() {
     <div className="my-6 sm:h-auto">
       <div className="m-3">
         <NavLink
-          to={`/dashboard/${companyName}`}
+          to={`/dashboard/${localStorage.getItem('cId')
+          }`}
           className="hover:bg-blue-400 hover:text-black rounded-md px-3 py-2 text-sm font-medium bg-blue-800 text-white border border-gray-200"
         >
           {localStorage.getItem('login') ? '⇐ Company Dashboard' : 'Home'}

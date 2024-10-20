@@ -9,11 +9,10 @@ function CreateCOmpany(props) {
         gstType: '',
         pinCode: '',
         mobile: '',
-        email: '',
         state: "",
         country: '',
         user: {
-            id: 0
+            id: localStorage.getItem("userId")
         }
     });
 
@@ -21,7 +20,6 @@ function CreateCOmpany(props) {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
-            email: JSON.parse(localStorage.getItem('login')).user
         });
     };
 

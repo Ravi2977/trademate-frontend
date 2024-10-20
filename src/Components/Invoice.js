@@ -77,8 +77,7 @@ function Invoice() {
             const customerDetails = await axios.post(`${BASE_URL}/customer/bynamecompany`,
                 {
                     customerName: invoiceDetail.data[0].customerName,
-                    companyName: JSON.parse(localStorage.getItem('companyName')).companyName,
-                    email: JSON.parse(localStorage.getItem('login')).user
+                    id: JSON.parse(localStorage.getItem('cId')).companyName,
                 },
                 {
                     headers: {
@@ -129,7 +128,6 @@ function Invoice() {
     const selectGstInvoice=()=>{
         gst?setGst(false):setGst(true)
     }
-    console.log("Inner html",gst)
     return (
         <div className='grid grid-cols-1 sm:grid-cols-4'>
             <div className="border border-gray-100 hidden sm:flex flex-col mt-5">

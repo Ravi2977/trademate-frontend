@@ -17,6 +17,7 @@ function Dashboard() {
     const [expired, setExpired] = useState(false)
 
     useEffect(() => {
+
         loadUser();
     }, []);
     const loadUser = async () => {
@@ -35,6 +36,7 @@ function Dashboard() {
             setLoadedUser(loadedUser.data)
             if (loadedUser.data.remainingDays > 15) {
                 setSubscription(true)
+
 
             } else if (loadedUser.data.remainingDays <= 0) {
                 setSubscription(false)
@@ -59,6 +61,7 @@ function Dashboard() {
                 console.error('Error while setting up the request:', error.message);
             }
         }
+
 
 
     };

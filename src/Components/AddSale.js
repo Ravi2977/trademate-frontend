@@ -45,7 +45,9 @@ function AddSale() {
         }
     };
 
+
     const fetchProducts = async () => {
+
         try {
             const response = await axios.post(`${BASE_URL}/stock/all`, company, {
                 headers: {

@@ -68,6 +68,7 @@ function Signin() {
       } else {
         resp.json().then((result) => {
           // Process JSON response data
+        
           try {
             localStorage.setItem('login', JSON.stringify({
               login: true,
@@ -75,12 +76,10 @@ function Signin() {
               user: result.userNAme
             }));
             loadUser().then((resp) => {
-              console.log(resp.data)
-              console.log(resp.data.verified, resp.data.subscribed)
+              localStorage.setItem('userId',resp.data.id)
               if (result.jwtToken) {
                 if (resp.data.verified) {
                   navigate('/usersDashboard');
-                  window.location.reload();
                 } else {
                   navigate('/vercation');
                 }

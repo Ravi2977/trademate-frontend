@@ -4,33 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import Home from './Home';
 import UpdateCompany from './UpdateCompany';
 import crossImage from './cross.png';
-import CreateCOmpany from './CreateCOmpany';
-import loader from './loader.gif'
-import clickEffect from './clickOnButton.wav'
+import CreateCompany from './CreateCOmpany';
+import loader from './loader.gif';
+import clickEffect from './clickOnButton.wav';
 import { BASE_URL } from './AuthContext';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function UsersDashboard() {
-   const clickSound= new Audio(clickEffect);
+    const clickSound = new Audio(clickEffect);
     const [update, setUpdate] = useState(false);
     const [id, setId] = useState(0);
-    const [loading, setLoading]=useState(true)
+    const [loading, setLoading] = useState(true);
     const [onlyUpdate, setOnlyUpdate] = useState(false);
     const [companyDetail, setCompanyDetail] = useState([]);
     const navigate = useNavigate();
 
-
     useEffect(() => {
         loadCompany();
-
     }, []);
 
-
     const loadCompany = async () => {
+        setLoading(true);
         try {
-            const response = await axios.post(
-                `${BASE_URL}/company/byuser/${JSON.parse(localStorage.getItem('login')).user}`,
-                {},
+            const response = await axios.get(
+                `${BASE_URL}/company/all/${localStorage.getItem('userId')}`,
                 {
                     headers: {
                         Authorization: `Bearer ${JSON.parse(localStorage.getItem('login')).token}`,
@@ -38,17 +36,22 @@ function UsersDashboard() {
                 }
             );
             setCompanyDetail(response.data);
-            setLoading(false)
+            toast.success('Company details loaded successfully!');
         } catch (error) {
             console.error('Error fetching company details:', error);
+            toast.error('Failed to load company details. Please try again.');
+        } finally {
+            setLoading(false);
         }
-
     };
 
-    const handleClickOnCompany = (id) => {
-      clickSound.play()
+    const handleClickOnCompany = (id,name) => {
+        clickSound.play();
+        console.log(id)
         navigate(`/dashboard/${id}`);
-        localStorage.setItem('companyName', JSON.stringify({ companyName: id }));
+        localStorage.setItem('companyName', JSON.stringify({ companyName: name }));
+        localStorage.setItem('cId',id);
+
     };
 
     const handleOnclickBody = () => {
@@ -57,23 +60,36 @@ function UsersDashboard() {
         loadCompany();
     };
 
-    const handleCreateCOmpany = () => {
+    const handleCreateCompany = () => {
         setUpdate(true);
+        toast.info('Create company form opened.');
     };
 
     const handleOnclickOnupdate = (e, id) => {
         e.stopPropagation();
         setId(id);
         setOnlyUpdate(true);
+        toast.info('Update company form opened.');
     };
 
     return (
-        <div className=''>
-            <div className="bg-blue-300 h-screen relative overflow-hidden px-0 sm:px-20 ">
+        <div>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            <div className="bg-blue-300 h-screen relative overflow-hidden px-0 sm:px-20">
                 {localStorage.getItem('login') && JSON.parse(localStorage.getItem('login')).login ? (
-                    <div className="">
-                        <div className='w-full flex justify-center overflow-y-auto '>
-                        {(update || onlyUpdate) && (
+                    <div>
+                        <div className='w-full flex justify-center overflow-y-auto'>
+                            {(update || onlyUpdate) && (
                                 <div className="absolute top-0 left-0 w-full sm:h-screen h-full bg-black opacity-50 z-50" onClick={handleOnclickBody}></div>
                             )}
                             {update && (
@@ -83,41 +99,40 @@ function UsersDashboard() {
                                             <img src={crossImage} alt="Close" />
                                         </button>
                                     </div>
-                                    <CreateCOmpany setUpdate={setUpdate} myfunction={loadCompany} />
+                                    <CreateCompany setUpdate={setUpdate} myfunction={loadCompany} />
                                 </div>
                             )}
                         </div>
                         <div className='w-full flex justify-center mt-8'>
-                                {onlyUpdate && (
-                                    <div className="absolute bg-white border border-black shadow-md rounded-md p-4 z-50">
-                                        <div className="flex justify-end">
-                                            <button onClick={handleOnclickBody} className="w-6 h-6 mr-2 focus:outline-none hover:scale-110 transform transition-transform">
-                                                <img src={crossImage} alt="Close" />
-                                            </button>
-                                        </div>
-                                        <UpdateCompany setOnlyUpdate={setOnlyUpdate} id={id} myfunction={loadCompany} />
+                            {onlyUpdate && (
+                                <div className="absolute bg-white border border-black shadow-md rounded-md p-4 z-50">
+                                    <div className="flex justify-end">
+                                        <button onClick={handleOnclickBody} className="w-6 h-6 mr-2 focus:outline-none hover:scale-110 transform transition-transform">
+                                            <img src={crossImage} alt="Close" />
+                                        </button>
                                     </div>
-                                )}
-                            </div>
-                        <div className=" mx-2 bg-blue-300 m-0">
-                            <div className="h-16 w-full flex justify-center items-center text-4xl text-blue-600 font-bold bg-gray-200 border-b-4 border-blue-400 rounded-t-lg  mt-2">
+                                    <UpdateCompany setOnlyUpdate={setOnlyUpdate} id={id} myfunction={loadCompany} />
+                                </div>
+                            )}
+                        </div>
+                        <div className="mx-2 bg-blue-300 m-0">
+                            <div className="h-16 w-full flex justify-center items-center text-4xl text-blue-600 font-bold bg-gray-200 border-b-4 border-blue-400 rounded-t-lg mt-2">
                                 Your Companies
                             </div>
                             <div className="col-span-1 flex justify-center items-center m-2">
-                                <div onClick={handleCreateCOmpany} className=" h-16 bg-blue-200 flex justify-center text-blue-900 items-center w-40 hover:bg-blue-600 hover:text-white transition-colors duration-300 rounded-lg shadow-md">
-                                    <button onClick={handleCreateCOmpany} className=" font-semibold focus:outline-none">
+                                <div onClick={handleCreateCompany} className="h-16 bg-blue-200 flex justify-center text-blue-900 items-center w-40 hover:bg-blue-600 hover:text-white transition-colors duration-300 rounded-lg shadow-md">
+                                    <button onClick={handleCreateCompany} className="font-semibold focus:outline-none">
                                         Create Company
                                     </button>
                                 </div>
                             </div>
-                            {loading?<div className='w-full flex justify-center'><img src={loader} alt="" /></div>:''}
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4  sm:h-full overflow-y-auto">
-                               
-                               {companyDetail.map((company, index) => (
+                            {loading ? <div className='w-full flex justify-center'><img src={loader} alt="Loading" /></div> : ''}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 sm:h-full overflow-y-auto">
+                                {companyDetail.map((company) => (
                                     <div
                                         key={company.companyId}
                                         className="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg hover:scale-105 transition-transform"
-                                        onClick={() => handleClickOnCompany(company.companyName)}
+                                        onClick={() => handleClickOnCompany(company.companyId,company.companyName)}
                                     >
                                         <p className="text-lg font-extrabold text-blue-600 uppercase tracking-wide mb-4">{company.companyName}</p>
                                         {company.gst && <p className="text-sm mb-2">GST: {company.gst}</p>}
@@ -136,13 +151,11 @@ function UsersDashboard() {
                                 ))}
                             </div>
                         </div>
-
                     </div>
                 ) : (
                     <Home />
                 )}
             </div>
-
         </div>
     );
 }

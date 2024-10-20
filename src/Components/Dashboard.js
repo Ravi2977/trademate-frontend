@@ -17,9 +17,7 @@ function Dashboard() {
     const [expired, setExpired] = useState(false)
 
     useEffect(() => {
-        loadProducts();
-        loadCustomers();
-        loadSeller();
+
         loadUser();
     }, []);
     const loadUser = async () => {
@@ -38,6 +36,7 @@ function Dashboard() {
             setLoadedUser(loadedUser.data)
             if (loadedUser.data.remainingDays > 15) {
                 setSubscription(true)
+
 
             } else if (loadedUser.data.remainingDays <= 0) {
                 setSubscription(false)
@@ -64,44 +63,7 @@ function Dashboard() {
         }
 
 
-    };
 
-    const loadProducts = async () => {
-        const productDetails = await axios.post(
-            `${BASE_URL}/stock/all`,
-            {
-                companyName: JSON.parse(localStorage.getItem('companyName')).companyName,
-                email: JSON.parse(localStorage.getItem('login')).user
-            },
-            {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('login') ? JSON.parse(localStorage.getItem('login')).token : ""}`
-                }
-            }
-        );
-        localStorage.setItem('saleDetails', JSON.stringify(productDetails.data));
-    };
-    const loadCustomers = async () => {
-        const customers = await axios.get(
-            `${BASE_URL}/customer/all`,
-            {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('login') ? JSON.parse(localStorage.getItem('login')).token : ""}`
-                }
-            }
-        );
-        localStorage.setItem('customers', JSON.stringify(customers.data));
-    };
-    const loadSeller = async () => {
-        const sellers = await axios.get(
-            `${BASE_URL}/seller/all`,
-            {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('login') ? JSON.parse(localStorage.getItem('login')).token : ""}`
-                }
-            }
-        );
-        localStorage.setItem('sellers', JSON.stringify(sellers.data));
     };
 
     return (

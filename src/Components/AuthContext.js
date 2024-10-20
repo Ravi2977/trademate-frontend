@@ -5,7 +5,8 @@ import React, { createContext, useState, useContext } from 'react';
 
 
 
-export const BASE_URL = 'https://bcknd.ravicomputer.online';
+// export const BASE_URL = 'https://bcknd.ravicomputer.online';
+export const BASE_URL = 'http://localhost:8080';
 
 // Create a context for authentication
 const AuthContext = createContext();

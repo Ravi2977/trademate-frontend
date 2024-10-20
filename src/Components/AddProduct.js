@@ -13,7 +13,7 @@ function AddProduct() {
 
     useEffect(() => {
         loadUser();
-        loadProducts();
+     
     }, []);
 
     const [id, setId] = useState(0);
@@ -26,10 +26,9 @@ function AddProduct() {
         purchasePrice: 0,
         quantity: 0,
         gstInPercent: 0,
-        companyName: JSON.parse(localStorage.getItem('companyName')).companyName,
-        email: JSON.parse(localStorage.getItem('login')).user,
         company: {
-            companyId: 0,
+            companyId: localStorage.getItem('cId')
+            ,
         },
     });
 
@@ -41,29 +40,7 @@ function AddProduct() {
         }));
     };
 
-    const loadProducts = async () => {
-        try {
-            const productDetails = await axios.post(
-                `${BASE_URL}/stock/all`,
-                {
-                    companyName: itemDetail.companyName,
-                    email: itemDetail.email,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${
-                            localStorage.getItem('login')
-                                ? JSON.parse(localStorage.getItem('login')).token
-                                : ''
-                        }`,
-                    },
-                }
-            );
-            localStorage.setItem('saleDetails', JSON.stringify(productDetails.data));
-        } catch (error) {
-            toast.error("Failed to load products");
-        }
-    };
+   
 
     const handleOnSubmit = async (e) => {
         setLoading(true);
@@ -87,7 +64,7 @@ function AddProduct() {
                 throw new Error('Failed to add stock item');
             }
 
-            await loadProducts();
+     
             setItemDetail({
                 itemName: '',
                 purchasePrice: 0,
